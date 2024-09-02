@@ -10,7 +10,9 @@ import java.io.IOException;
 import javax.swing.JFrame;
 
 import IO.Window;
+import Map.Goal;
 import Map.Map;
+import Map.Obstacle;
 import Population.Body;
 import Population.Population;
 
@@ -28,8 +30,15 @@ public class Main extends Canvas implements Runnable{
 
     public Main(){
         setPreferredSize(new Dimension(Window.WIDTH,Window.HEIGHT));
-        map = new Map();
-        population = new Population(100, new Map());
+        map = new Map(
+            new Point(Window.WIDTH/2, Window.HEIGHT-50),
+            new Goal(Window.WIDTH/2-25,0,50,50),
+            new Obstacle(0,250,1200,25),
+            new Obstacle(1300, 250, 1500-875, 25),
+            new Obstacle(0, 600, 1500/2-50, 25),
+            new Obstacle(1500/2+50, 600, 1500-1500/2+50, 25));
+
+        population = new Population(100, map);
     }
 
     public void start(){
@@ -77,9 +86,10 @@ public class Main extends Canvas implements Runnable{
         }
 
         Graphics g = bs.getDrawGraphics();
-            g.setColor(Color.RED);
+            g.setColor(Color.WHITE);
             g.fillRect(0, 0, getWidth(), getHeight());
 
+            map.render(g);
             population.render(g);
 
             g.dispose();

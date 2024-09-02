@@ -11,8 +11,8 @@ public class Body{
 
     public Body(Point pos){
         this.x=pos.x;
-        this.y=pos.x;
-        brain = new Brain(100);
+        this.y=pos.y;
+        brain = new Brain(500);
     }
 
     public void tick(){
