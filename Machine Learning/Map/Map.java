@@ -3,6 +3,8 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 
 import Core.Point;
+import IO.Window;
+import Population.Body;
 
 public class Map {
     private ArrayList<Obstacle> obs;
@@ -22,6 +24,25 @@ public class Map {
     }
     public Map(){
         this(new Point(0,0));
+    }
+
+    public boolean deathCollision(Body body){
+        for(int i = 0; i < obs.size(); i++){
+            Obstacle o = obs.get(i);
+            if(body.x>o.x && body.x<(o.x+o.width) && body.y>o.y && body.y<(o.y+o.height)){
+                return true;
+            }
+        }
+        if(body.x<0 || body.x>Window.WIDTH || body.y<0 || body.y>Window.HEIGHT){
+            return true;
+        }
+        return false;
+    }
+    public boolean goalCollision(Body body){
+        if(body.x>goal.x && body.x<(goal.x+goal.width) && body.y>goal.y && body.y<(goal.y+goal.height)){
+            return true;
+        }
+        return false;
     }
     
     public void render(Graphics g){
