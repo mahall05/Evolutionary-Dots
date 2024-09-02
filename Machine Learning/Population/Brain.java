@@ -16,4 +16,22 @@ public class Brain {
             this.steps[i] = new Point(Main.randomInt(-moveSpeed,moveSpeed), Main.randomInt(-moveSpeed,moveSpeed));
         }
     }
+
+    public Brain(Point[] steps){
+        this.steps=new Point[steps.length];
+        for(int i = 0; i < steps.length; i++){
+            this.steps[i] = steps[i];
+        }
+    }
+
+    public Point[] getSteps(){
+        return steps;
+    }
+
+    public void mutate(double rate){
+        for(int i = 0; i < steps.length; i++){
+            double rand = Main.randomDouble(0.0, 1.0);
+            if(rand<rate) steps[i] = new Point(Main.randomInt(-moveSpeed,moveSpeed), Main.randomInt(-moveSpeed,moveSpeed));
+        }
+    }
 }
