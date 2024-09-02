@@ -8,8 +8,10 @@ import Core.Point;
 public class Brain {
     public Point[] steps;
     public int moveSpeed=10;
+    private int size;
 
     public Brain(int steps){
+        size=steps;
         this.steps = new Point[steps];
 
         for(int i = 0; i < steps; i++){
@@ -33,5 +35,9 @@ public class Brain {
             double rand = Main.randomDouble(0.0, 1.0);
             if(rand<rate) steps[i] = new Point(Main.randomInt(-moveSpeed,moveSpeed), Main.randomInt(-moveSpeed,moveSpeed));
         }
+    }
+
+    public int getSize(){
+        return size;
     }
 }

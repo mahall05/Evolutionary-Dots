@@ -39,7 +39,7 @@ public class Population {
             double runningTotal=0.0;
             double rand = Main.randomDouble(0.0, fitnessSum);
             for(int j = 0; j < past.length; j++){
-                if(rand<runningTotal+past[j].getFitness()){
+                if(rand<=runningTotal+past[j].getFitness()){
                     bodies[i] = new Body(map.getSpawnPoint(), past[j].getBrain());
                 }else{
                     runningTotal += past[j].getFitness();
@@ -47,6 +47,12 @@ public class Population {
             }
         }
 
+        for(int i = 0; i < bodies.length; i++){
+            if(bodies[i]==null){
+                bodies[i] = new Body(map.getSpawnPoint());
+            }
+        }
+        //System.out.println("Test");
         for(int i = 1; i < bodies.length; i++){
             bodies[i].getBrain().mutate(MUT_RATE);
         }
@@ -64,7 +70,7 @@ public class Population {
             if(b.getFitness()<lowest) lowest=b.getFitness();
         }
         for(Body b : bodies){
-            b.setFitness(b.getFitness()+lowest);
+            b.setFitness(b.getFitness()-lowest);
         }
     }
 
@@ -72,6 +78,18 @@ public class Population {
         for(int i = 0; i < bodies.length; i++){
             bodies[i].tick();
             if(map.deathCollision(bodies[i])) bodies[i].kill();
+            if(map.goalCollision(bodies[i])) bodies[i].win();
+        }
+
+        int active=0;
+        for(int i = 0; i < bodies.length; i++){
+            if(bodies[i].alive() && !bodies[i].success() && !bodies[i].done()){
+                active++;
+            }
+        }
+        if(active==0){
+            calcFitness();
+            new Population(this.generation+1, bodies, map);
         }
     }
     public void render(Graphics g){
