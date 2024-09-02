@@ -5,7 +5,7 @@ import java.awt.Graphics;
 import Core.Point;
 
 public class Body{
-    public int x,y;
+    public int x,y,size=7;
     private Brain brain;
     private int step=0;
     private boolean alive;
@@ -26,7 +26,7 @@ public class Body{
     }
     public void render(Graphics g){
         g.setColor(Color.BLACK);
-        g.fillOval(x,y,7,7);
+        g.fillOval(x,y,size,size);
     }
 
     public void kill(){

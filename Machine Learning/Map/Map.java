@@ -29,7 +29,10 @@ public class Map {
     public boolean deathCollision(Body body){
         for(int i = 0; i < obs.size(); i++){
             Obstacle o = obs.get(i);
-            if(body.x>o.x && body.x<(o.x+o.width) && body.y>o.y && body.y<(o.y+o.height)){
+            if((body.x>o.x && body.x<(o.x+o.width) && body.y>o.y && body.y<(o.y+o.height)) ||
+               ((body.x+body.size)>o.x && (body.x+body.size)<(o.x+o.width) && body.y>o.y && body.y<(o.y+o.height)) ||
+               (body.x>o.x && body.x<(o.x+o.width) && (body.y+body.size)>o.y && (body.y+body.size)<(o.y+o.height)) ||
+               ((body.x+body.size)>o.x && (body.x+body.size)<(o.x+o.width) && (body.y+body.size)>o.y && (body.y+body.size)<(o.y+o.height))){
                 return true;
             }
         }
