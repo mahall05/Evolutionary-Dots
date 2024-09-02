@@ -2,14 +2,16 @@ package Population;
 import java.awt.Color;
 import java.awt.Graphics;
 
+import Core.Point;
+
 public class Body{
     private int x,y;
     private Brain brain;
     private int step=0;
 
-    public Body(int x, int y){
-        this.x=x;
-        this.y=y;
+    public Body(Point pos){
+        this.x=pos.x;
+        this.y=pos.x;
         brain = new Brain(100);
     }
 

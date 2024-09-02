@@ -1,5 +1,7 @@
 package Population;
 
+import java.awt.geom.Point2D;
+
 import Core.Main;
 import Core.Point;
 

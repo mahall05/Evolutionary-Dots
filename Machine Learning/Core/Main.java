@@ -10,6 +10,7 @@ import java.io.IOException;
 import javax.swing.JFrame;
 
 import IO.Window;
+import Map.Map;
 import Population.Body;
 import Population.Population;
 
@@ -19,6 +20,7 @@ public class Main extends Canvas implements Runnable{
     private boolean running = false;
 
     private Population population;
+    private Map map;
 
     public static void main(String[] args){
         window = new Window("Simulation", new Main());
@@ -26,7 +28,8 @@ public class Main extends Canvas implements Runnable{
 
     public Main(){
         setPreferredSize(new Dimension(Window.WIDTH,Window.HEIGHT));
-        population = new Population(100);
+        map = new Map();
+        population = new Population(100, new Map());
     }
 
     public void start(){

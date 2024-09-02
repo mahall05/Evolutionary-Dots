@@ -3,15 +3,16 @@ import java.awt.Graphics;
 
 import Core.Main;
 import IO.Window;
+import Map.Map;
 
 public class Population {
     private Body[] bodies;
 
-    public Population(int size){
+    public Population(int size, Map map){
         bodies = new Body[size];
 
         for(int i = 0; i < size; i++){
-            bodies[i] = new Body(Window.WIDTH/2, Window.HEIGHT-100);
+            bodies[i] = new Body(map.getSpawnPoint());
         }
     }
 
