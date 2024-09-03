@@ -46,8 +46,19 @@ public class Population {
             }
         }
         public Generation(int size, Generation gen){
-            this(size);
+            bodies = new Body[size];
             bodies[0]=new Body(map.getSpawnPoint(), gen.getBestFit().getBrain());
+
+            for(int i = 1; i < size; i++){
+                double sum = 0.0;
+                double rand = Main.randomDouble(0.0, gen.getFitSum());
+                for(int j = 0; j < bodies.length; j++){
+                    sum+=gen.getBodies()[j].getFitness();
+                    if(rand<=sum){
+                        
+                    }
+                }
+            }
         }
         public void destroy(){
             for(int i = 0; i < bodies.length; i++){
@@ -105,6 +116,13 @@ public class Population {
                 }
             }
             return bodies[j];
+        }
+        public double getFitSum(){
+            double sum = 0;
+            for(int i = 0; i < bodies.length; i++){
+                sum+=bodies[i].getFitness();
+            }
+            return sum;
         }
     }
 }
