@@ -16,4 +16,8 @@ public class Brain {
             this.steps[i] = new Point(Main.randomInt(-moveSpeed,moveSpeed), Main.randomInt(-moveSpeed,moveSpeed));
         }
     }
+
+    public int size(){
+        return steps.length;
+    }
 }

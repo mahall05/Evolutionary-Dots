@@ -9,19 +9,24 @@ public class Body{
     private Brain brain;
     private int step=0;
     private boolean alive;
+    private boolean success;
+    private boolean endOfLife;
 
     public Body(Point pos){
         this.x=pos.x;
         this.y=pos.y;
         brain = new Brain(500);
         alive=true;
+        success=false;
+        endOfLife=false;
     }
 
     public void tick(){
-        if(alive){
+        if(alive && !endOfLife && !success){
             x+=brain.steps[step].x;
             y+=brain.steps[step].y;
             step++;
+            if(step >= brain.size()-1) endOfLife=true;
         }
     }
     public void render(Graphics g){
@@ -31,5 +36,9 @@ public class Body{
 
     public void kill(){
         alive=false;
+    }
+
+    public boolean isActive(){
+        return alive && !success && !endOfLife;
     }
 }
