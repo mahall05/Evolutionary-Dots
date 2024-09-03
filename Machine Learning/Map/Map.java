@@ -47,6 +47,9 @@ public class Map {
         }
         return false;
     }
+    public double goalDistance(Body body){
+        return Math.sqrt(Math.pow(goal.x+goal.width/2 - body.x+body.size/2, 2) + Math.pow(goal.y+goal.height/2 - body.y+body.size/2, 2));
+    }
     
     public void render(Graphics g){
         for(Obstacle o : obs){

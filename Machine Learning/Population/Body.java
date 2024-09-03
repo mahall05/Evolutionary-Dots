@@ -11,6 +11,7 @@ public class Body{
     private boolean alive;
     private boolean success;
     private boolean endOfLife;
+    private double fitness =0;
 
     public Body(Point pos){
         this(pos, new Brain(500));
@@ -50,5 +51,22 @@ public class Body{
 
     public Brain getBrain(){
         return brain;
+    }
+
+    public boolean alive(){
+        return alive;
+    }
+
+    public double getFitness(){
+        return fitness;
+    }
+    public void setFitness(double fitness){
+        this.fitness=fitness;
+    }
+    public boolean success(){
+        return success;
+    }
+    public int getStep(){
+        return step;
     }
 }

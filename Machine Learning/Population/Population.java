@@ -21,6 +21,7 @@ public class Population {
     public void tick(){
         activeGen.tick();
         if(activeGen.finished()){
+            activeGen.calcFitness();
             newGeneration();
         }
     }
@@ -46,7 +47,7 @@ public class Population {
         }
         public Generation(int size, Generation gen){
             this(size);
-            bodies[0]=new Body(map.getSpawnPoint(), gen.getBodies()[0].getBrain());
+            bodies[0]=new Body(map.getSpawnPoint(), gen.getBestFit().getBrain());
         }
         public void destroy(){
             for(int i = 0; i < bodies.length; i++){
@@ -77,6 +78,33 @@ public class Population {
         }
         public Body[] getBodies(){
             return bodies;
+        }
+
+        public void calcFitness(){
+            for(Body b : bodies){ 
+                double fitness=0; 
+                 
+                fitness = fitness + (b.success()?10000-b.getStep():0) - map.goalDistance(b) - (!b.alive()?100:0); 
+                b.setFitness(fitness); 
+            } 
+            double lowest=Double.MAX_VALUE; 
+            for(Body b : bodies){ 
+                if(b.getFitness()<lowest) lowest=b.getFitness(); 
+            } 
+            for(Body b : bodies){ 
+                b.setFitness(b.getFitness()-lowest); 
+            } 
+        }
+        public Body getBestFit(){
+            int j = -1;
+            double fit = Double.MIN_VALUE;
+            for(int i = 0; i < bodies.length; i++){
+                if(bodies[i].getFitness()>fit){
+                    j=i;
+                    fit=bodies[i].getFitness();
+                }
+            }
+            return bodies[j];
         }
     }
 }
