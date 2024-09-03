@@ -13,9 +13,12 @@ public class Body{
     private boolean endOfLife;
 
     public Body(Point pos){
+        this(pos, new Brain(500));
+    }
+    public Body(Point pos, Brain brain){
         this.x=pos.x;
         this.y=pos.y;
-        brain = new Brain(500);
+        this.brain = brain;
         alive=true;
         success=false;
         endOfLife=false;
@@ -29,9 +32,12 @@ public class Body{
             if(step >= brain.size()-1) endOfLife=true;
         }
     }
-    public void render(Graphics g){
-        g.setColor(Color.BLACK);
+    public void render(Graphics g, boolean best){
+        g.setColor(best?Color.GREEN:Color.BLACK);
         g.fillOval(x,y,size,size);
+    }
+    public void render(Graphics g){
+        render(g, false);
     }
 
     public void kill(){
@@ -40,5 +46,9 @@ public class Body{
 
     public boolean isActive(){
         return alive && !success && !endOfLife;
+    }
+
+    public Brain getBrain(){
+        return brain;
     }
 }
